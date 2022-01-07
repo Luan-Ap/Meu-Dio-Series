@@ -1,4 +1,4 @@
-﻿namespace Infra.Migrations
+﻿namespace MeuDioSeries.Infra.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

@@ -1,7 +1,7 @@
-﻿using Dominio.Entidades;
+﻿using MeuDioSeries.Dominio.Entidades;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Infra.EntityConfiguration
+namespace MeuDioSeries.Infra.EntityConfiguration
 {
     class SeriesConfig : EntityTypeConfiguration<Serie>
     {

@@ -2,7 +2,7 @@
 
 namespace MeuDioSeries.Dominio.Interface
 {
-    public interface ISerieRepositorio<T>
+    public interface ISerieService<T>
     {
         void Add(T obj);
         T GetById(int id);

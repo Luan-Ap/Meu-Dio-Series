@@ -1,18 +1,19 @@
-﻿namespace Infra.Migrations
+﻿namespace MeuDioSeries.Infra.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using MeuDioSeries.Infra.Contexto;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Infra.Contexto.DioSeriesContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DioSeriesContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Infra.Contexto.DioSeriesContext context)
+        protected override void Seed(DioSeriesContext context)
         {
             //  This method will be called after migrating to the latest version.
 

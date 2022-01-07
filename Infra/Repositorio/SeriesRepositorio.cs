@@ -1,11 +1,12 @@
-﻿using Dominio.Entidades;
-using Dominio.Interface;
-using Infra.Contexto;
+﻿using MeuDioSeries.Dominio.Entidades;
+using MeuDioSeries.Dominio.Interface;
+using MeuDioSeries.Infra.Contexto;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Data.Entity.Migrations;
 
-namespace Infra.Repositorio
+namespace MeuDioSeries.Infra.Repositorio
 {
     public class SeriesRepositorio : ISerieRepositorio<Serie>
     {
@@ -30,8 +31,8 @@ namespace Infra.Repositorio
 
         public void Remove(Serie obj)
         {
-            obj.Excluida = true;
-            context.Entry(obj).State = EntityState.Modified;
+            //context.Entry(obj).State = EntityState.Modified;
+            context.Set<Serie>().AddOrUpdate(obj);
             context.SaveChanges();
         }
 

@@ -1,6 +1,6 @@
-﻿using Dominio.Enum;
+﻿using MeuDioSeries.Dominio.Enum;
 
-namespace Dominio.Entidades
+namespace MeuDioSeries.Dominio.Entidades
 {
     public class Serie
     {

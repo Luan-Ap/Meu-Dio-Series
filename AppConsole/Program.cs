@@ -1,10 +1,10 @@
-﻿using Dominio.Entidades;
-using Dominio.Enum;
-using Infra.Repositorio;
+﻿using MeuDioSeries.Dominio.Entidades;
+using MeuDioSeries.Dominio.Enum;
+using MeuDioSeries.Infra.Repositorio;
 using System;
 using System.Linq;
 
-namespace AppConsole
+namespace MeuDioSeries.AppConsole
 {
     class Program
     {
@@ -222,6 +222,7 @@ namespace AppConsole
                     }
                     else
                     {
+                        serie.Excluida = true;
                         seriesRepositorio.Remove(serie);
                         Console.Write("\n\nSérie excluida com sucesso.");
                     }

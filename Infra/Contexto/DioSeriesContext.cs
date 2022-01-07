@@ -1,9 +1,9 @@
-﻿using Dominio.Entidades;
-using Infra.EntityConfiguration;
+﻿using MeuDioSeries.Dominio.Entidades;
+using MeuDioSeries.Infra.EntityConfiguration;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Infra.Contexto
+namespace MeuDioSeries.Infra.Contexto
 {
     public class DioSeriesContext : DbContext
     {

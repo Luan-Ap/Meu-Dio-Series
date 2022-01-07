@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MeuDioSeries.Dominio.Entidades.SerieViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Séries</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Nova Série</a>
+</p>
+<table class="table col-md-auto">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SerieId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnoLancamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerieId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnoLancamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td>
+                @Html.ActionLink("Atualizar", "Edit", new { id=item.SerieId }, new { @class="btn btn-primary"})
+                @Html.ActionLink("Visualizar", "Details", new { id=item.SerieId }, new { @class="btn btn-secondary"})
+                @Html.ActionLink("Excluir", "Delete", new { id=item.SerieId }, new { @class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
