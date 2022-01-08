@@ -7,6 +7,8 @@ namespace MeuDioSeries.Infra.Contexto
 {
     public class DioSeriesContext : DbContext
     {
+        //Adicione aqui sua string de conexão.
+        //Caso queira seguir o mesmo modelo, terá que criar a pasta App_Data no projeto onde está seu contexto.
         public DioSeriesContext()
             : base(@"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\DioSeriesV2\MeuDioSeries\Infra\App_Data\MeuDioSeriesDB.mdf; Initial Catalog=MeuDioSeriesDB; Integrated Security=True")
         {
