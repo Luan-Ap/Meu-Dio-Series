@@ -25,14 +25,19 @@ namespace MeuDioSeries.Web
         {
             services.AddControllersWithViews();
 
+            //Aqui criamos uma configuração do AutoMapper para realizar o mapeamento
             var config = new MapperConfiguration(c =>
             {
                 c.CreateMap<SerieViewModel, Serie>();
                 c.CreateMap<Serie, SerieViewModel>();
             });
 
+            //Aqui criamos um mapper com a configuração definida
             IMapper mapper = config.CreateMapper();
 
+
+            //Aqui adicionamos as dependências para serem injetadas
+            
             services.AddSingleton(mapper);
 
             services.AddTransient<ISerieRepositorio<Serie>, SeriesRepositorio>();

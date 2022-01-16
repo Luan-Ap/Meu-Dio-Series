@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MeuDioSeries.Dominio.Entidades
 {
+    //Aqui definimos uma ViewModel da entidade Serie
+    //Ela é composta com algumas DataAnnotations para auxiliar na validação do modelo
     public class SerieViewModel
     {
         [Key]

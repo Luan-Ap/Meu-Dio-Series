@@ -31,7 +31,6 @@ namespace MeuDioSeries.Infra.Repositorio
 
         public void Remove(Serie obj)
         {
-            //context.Entry(obj).State = EntityState.Modified;
             context.Set<Serie>().AddOrUpdate(obj);
             context.SaveChanges();
         }

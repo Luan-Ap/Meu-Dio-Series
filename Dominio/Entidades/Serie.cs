@@ -2,6 +2,7 @@
 
 namespace MeuDioSeries.Dominio.Entidades
 {
+    //Aqui definimos a entidade Serie e suas propriedades
     public class Serie
     {
         public int SerieId { get; set; }

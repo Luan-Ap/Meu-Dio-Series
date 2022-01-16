@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 namespace MeuDioSeries.Service
 {
+    //Esta classe implementa a interface ISerieService utilizando o tipo SerieViewModel
+    //Ela também é responsável por implementar o mapper definido na classe Startup.cs, fazendo o mapeamento entre os objetos Serie e SerieViewModel
     public class SerieService : ISerieService<SerieViewModel>
     {
         private readonly ISerieRepositorio<Serie> _serieRepositorio;
