@@ -40,7 +40,7 @@ namespace MeuDioSeries.Web
             
             services.AddSingleton(mapper);
 
-            services.AddScoped<ISerieRepositorio<Serie>, SeriesRepositorio>();
+            services.AddTransient<ISerieRepositorio, SeriesRepositorio>();
             services.AddTransient<ISerieService<SerieViewModel>, SerieService>();
         }
 

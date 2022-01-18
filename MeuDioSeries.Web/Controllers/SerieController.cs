@@ -84,7 +84,6 @@ namespace MeuDioSeries.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var serieViewModel = _serieService.GetById(id);
-            serieViewModel.Excluida = true;
             _serieService.Remove(serieViewModel);
 
             return RedirectToAction("Index");

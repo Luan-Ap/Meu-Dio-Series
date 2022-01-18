@@ -8,36 +8,24 @@ using System.Data.Entity.Migrations;
 
 namespace MeuDioSeries.Infra.Repositorio
 {
-    public class SeriesRepositorio : ISerieRepositorio<Serie>
+    public class SeriesRepositorio : RepositorioBase<Serie>, ISerieRepositorio
     {
-        protected DioSeriesContext context = new DioSeriesContext();
-        public void Add(Serie obj)
+        public IEnumerable<Serie> GetAllSeriesNaoExcluidas()
         {
-            context.Series.Add(obj);
-            context.SaveChanges();
-        }
-
-        public IEnumerable<Serie> GetAll()
-        {
-            var series = context.Series.Where(s => s.Excluida == false);
+            var series = context.Series.Where(s => s.Excluida == false).ToList();
             return series;
         }
 
-        public Serie GetById(int id)
+        public Serie GetSerieNaoExcluidaById(int id)
         {
-            var serie = context.Series.Where(s => s.SerieId == id && s.Excluida == false).SingleOrDefault();
+            var serie = context.Series.Where(s => s.Excluida == false && s.SerieId == id).FirstOrDefault();
             return serie;
         }
 
-        public void Remove(Serie obj)
+        public void Remove(Serie serie)
         {
-            context.Set<Serie>().AddOrUpdate(obj);
-            context.SaveChanges();
-        }
+            context.Set<Serie>().AddOrUpdate(serie);
 
-        public void Update(Serie obj)
-        {
-            context.Entry(obj).State = EntityState.Modified;
             context.SaveChanges();
         }
     }

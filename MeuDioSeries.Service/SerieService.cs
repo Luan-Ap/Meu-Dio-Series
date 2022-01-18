@@ -9,10 +9,10 @@ namespace MeuDioSeries.Service
     //Ela também é responsável por implementar o mapper definido na classe Startup.cs, fazendo o mapeamento entre os objetos Serie e SerieViewModel
     public class SerieService : ISerieService<SerieViewModel>
     {
-        private readonly ISerieRepositorio<Serie> _serieRepositorio;
+        private readonly ISerieRepositorio _serieRepositorio;
         private readonly IMapper _mapper;
 
-        public SerieService(ISerieRepositorio<Serie> serieRepositorio, IMapper mapper)
+        public SerieService(ISerieRepositorio serieRepositorio, IMapper mapper)
         {
             _serieRepositorio = serieRepositorio;
             _mapper = mapper;
@@ -26,19 +26,20 @@ namespace MeuDioSeries.Service
 
         public IEnumerable<SerieViewModel> GetAll()
         {
-            var seriesViewModel = _mapper.Map<IEnumerable<SerieViewModel>>(_serieRepositorio.GetAll());
+            var seriesViewModel = _mapper.Map<IEnumerable<SerieViewModel>>(_serieRepositorio.GetAllSeriesNaoExcluidas());
             return seriesViewModel;
         }
 
         public SerieViewModel GetById(int id)
         {
-            var serieViewModel = _mapper.Map<SerieViewModel>(_serieRepositorio.GetById(id));
+            var serieViewModel = _mapper.Map<SerieViewModel>(_serieRepositorio.GetSerieNaoExcluidaById(id));
             return serieViewModel;
         }
 
         public void Remove(SerieViewModel serieViewModel)
         {
             var serie = _mapper.Map<SerieViewModel, Serie>(serieViewModel);
+            serie.Excluida = true;
             _serieRepositorio.Remove(serie);
         }
 

@@ -28,7 +28,8 @@ namespace MeuDioSeries.AppConsole
 
             //Aqui adicionamos as dependências para serem injetadas
             services.AddSingleton(mapper);
-            services.AddScoped<ISerieRepositorio<Serie>, SeriesRepositorio>();
+
+            services.AddTransient<ISerieRepositorio, SeriesRepositorio>();
             services.AddTransient<ISerieService<SerieViewModel>, SerieService>();
             
             var provider = services.BuildServiceProvider();
@@ -250,7 +251,6 @@ namespace MeuDioSeries.AppConsole
                     }
                     else
                     {
-                        serie.Excluida = true;
                         _service.Remove(serie);
                         Console.Write("\n\nSérie excluida com sucesso.");
                     }
@@ -260,9 +260,9 @@ namespace MeuDioSeries.AppConsole
                     Console.Write("\n\nSérie não encontrada ou já Excluída.");
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                Console.Write("\n\nErro ao excluir Série. Verifique se as entradas estão corretas e tente novamente.");
+                Console.Write(ex.Message + "\n\nErro ao excluir Série. Verifique se as entradas estão corretas e tente novamente.");
             }
             finally
             {
