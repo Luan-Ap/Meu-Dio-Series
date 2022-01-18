@@ -1,6 +1,10 @@
-﻿using MeuDioSeries.Dominio.Entidades;
+﻿using AutoMapper;
+using MeuDioSeries.Dominio.Entidades;
 using MeuDioSeries.Dominio.Enum;
+using MeuDioSeries.Dominio.Interface;
 using MeuDioSeries.Infra.Repositorio;
+using MeuDioSeries.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
@@ -8,9 +12,29 @@ namespace MeuDioSeries.AppConsole
 {
     class Program
     {
-        static SeriesRepositorio seriesRepositorio = new SeriesRepositorio();
+        static ISerieService<SerieViewModel> _service;
         static void Main(string[] args)
         {
+            var services = new ServiceCollection();
+
+            var config = new MapperConfiguration(c =>
+            {
+                c.CreateMap<SerieViewModel, Serie>();
+                c.CreateMap<Serie, SerieViewModel>();
+            });
+
+            //Aqui criamos um mapper com a configuração definida
+            IMapper mapper = config.CreateMapper();
+
+            //Aqui adicionamos as dependências para serem injetadas
+            services.AddSingleton(mapper);
+            services.AddScoped<ISerieRepositorio<Serie>, SeriesRepositorio>();
+            services.AddTransient<ISerieService<SerieViewModel>, SerieService>();
+            
+            var provider = services.BuildServiceProvider();
+
+            _service = provider.GetRequiredService<ISerieService<SerieViewModel>>();
+
             string opcaoUsuario = ObterOpcaoUsuario();
 
             while (opcaoUsuario.ToUpper() != "X")
@@ -75,7 +99,7 @@ namespace MeuDioSeries.AppConsole
             Console.Clear();
             Console.WriteLine("========= Listar séries =========\n");
 
-            var lista = seriesRepositorio.GetAll();
+            var lista = _service.GetAll();
 
             if (lista.Any())
             {
@@ -113,7 +137,7 @@ namespace MeuDioSeries.AppConsole
                 Console.Write("\nDigite o Ano de Início da Série(Ex: 2015): ");
                 int entradaAno = int.Parse(Console.ReadLine());
 
-                Serie novaSerie = new Serie
+                SerieViewModel novaSerie = new SerieViewModel
                 {
                     Titulo = entradaTitulo,
                     Descricao = entradaDescricao,
@@ -122,7 +146,7 @@ namespace MeuDioSeries.AppConsole
                     Excluida = false
                 };
 
-                seriesRepositorio.Add(novaSerie);
+                _service.Add(novaSerie);
 
                 Console.Write("\n\nSérie inserida com sucesso.");
 
@@ -143,7 +167,7 @@ namespace MeuDioSeries.AppConsole
             Console.Clear();
             Console.WriteLine("========= Atualizar série =========\n");
 
-            if (seriesRepositorio.GetAll() == null)
+            if (_service.GetAll() == null)
             {
                 return;
             }
@@ -151,11 +175,13 @@ namespace MeuDioSeries.AppConsole
             try
             {
                 Console.Write("Digite o id da série que deseja atualizar(Ex: 3): ");
-                var serie = seriesRepositorio.GetById(int.Parse(Console.ReadLine()));
+                var serie = _service.GetById(int.Parse(Console.ReadLine()));
 
                 if (serie != null)
                 {
-                    Console.WriteLine("\n" + serie + "\n------------------------------------\n");
+                    Console.Write("\n");
+                    DetalhesSerieViewModel(serie);
+                    Console.WriteLine("\n------------------------------------\n");
 
                     foreach (int i in Enum.GetValues(typeof(Genero)))
                     {
@@ -174,7 +200,7 @@ namespace MeuDioSeries.AppConsole
                     Console.Write("\nDigite o Ano de Início da Série(Ex: 2015): ");
                     serie.AnoLancamento = int.Parse(Console.ReadLine());
 
-                    seriesRepositorio.Update(serie);
+                    _service.Update(serie);
 
                     Console.Write("\n\nSérie atualizada com sucesso.");
                 }
@@ -199,7 +225,7 @@ namespace MeuDioSeries.AppConsole
             Console.Clear();
             Console.WriteLine("========= Excluir série =========\n");
 
-            if (seriesRepositorio.GetAll() == null)
+            if (_service.GetAll() == null)
             {
                 return;
             }
@@ -207,11 +233,13 @@ namespace MeuDioSeries.AppConsole
             try
             {
                 Console.Write("Digite o id da série que deseja excluir(Ex: 3): ");
-                var serie = seriesRepositorio.GetById(int.Parse(Console.ReadLine()));
+                var serie = _service.GetById(int.Parse(Console.ReadLine()));
 
                 if (serie != null)
                 {
-                    Console.WriteLine("\n" + serie + "\n------------------------------------\n");
+                    Console.Write("\n");
+                    DetalhesSerieViewModel(serie);
+                    Console.WriteLine("\n------------------------------------\n");
 
                     Console.WriteLine();
                     Console.Write("Deseja realmente excluir essa série?\nDigite 1 para SIM ou Digite 0 para NÃO: ");
@@ -223,7 +251,7 @@ namespace MeuDioSeries.AppConsole
                     else
                     {
                         serie.Excluida = true;
-                        seriesRepositorio.Remove(serie);
+                        _service.Remove(serie);
                         Console.Write("\n\nSérie excluida com sucesso.");
                     }
                 }
@@ -248,7 +276,7 @@ namespace MeuDioSeries.AppConsole
             Console.Clear();
             Console.WriteLine("========= Visualizar série =========\n");
 
-            if (seriesRepositorio.GetAll() == null)
+            if (_service.GetAll() == null)
             {
                 return;
             }
@@ -256,12 +284,12 @@ namespace MeuDioSeries.AppConsole
             try
             {
                 Console.Write("Digite o id da série que deseja visualizar: ");
-                var serie = seriesRepositorio.GetById(int.Parse(Console.ReadLine()));
+                var serie = _service.GetById(int.Parse(Console.ReadLine()));
 
                 if (serie != null)
                 {
                     Console.WriteLine();
-                    Console.WriteLine(serie);
+                    DetalhesSerieViewModel(serie);
                 }
                 else
                 {
@@ -277,6 +305,14 @@ namespace MeuDioSeries.AppConsole
                 Console.Write("\nPressione ENTER para continuar...");
                 Console.ReadLine();
             }
+        }
+
+        private static void DetalhesSerieViewModel(SerieViewModel serie)
+        {
+            Console.WriteLine($"Gênero: {serie.Genero}\n" +
+                              $"Título: {serie.Titulo}\n" +
+                              $"Descrição: {serie.Descricao}\n" +
+                              $"Ano de Início: {serie.AnoLancamento}");
         }
     }
 }
