@@ -12,7 +12,7 @@ namespace MeuDioSeries.AppConsole
 {
     class Program
     {
-        static ISerieService<SerieViewModel> _service;
+        static ISerieService _service;
         static void Main(string[] args)
         {
             var services = new ServiceCollection();
@@ -30,11 +30,11 @@ namespace MeuDioSeries.AppConsole
             services.AddSingleton(mapper);
 
             services.AddTransient<ISerieRepositorio, SeriesRepositorio>();
-            services.AddTransient<ISerieService<SerieViewModel>, SerieService>();
+            services.AddTransient<ISerieService, SerieService>();
             
             var provider = services.BuildServiceProvider();
 
-            _service = provider.GetRequiredService<ISerieService<SerieViewModel>>();
+            _service = provider.GetRequiredService<ISerieService>();
 
             string opcaoUsuario = ObterOpcaoUsuario();
 
@@ -102,9 +102,9 @@ namespace MeuDioSeries.AppConsole
 
             var lista = _service.GetAll();
 
-            if (lista.Any())
+            if (lista.Result.Any())
             {
-                foreach (var serie in lista)
+                foreach (var serie in lista.Result)
                 {
                     Console.WriteLine("#ID: {0} - Título: {1}", serie.SerieId, serie.Titulo);
                 }
@@ -181,7 +181,7 @@ namespace MeuDioSeries.AppConsole
                 if (serie != null)
                 {
                     Console.Write("\n");
-                    DetalhesSerieViewModel(serie);
+                    DetalhesSerieViewModel(serie.Result);
                     Console.WriteLine("\n------------------------------------\n");
 
                     foreach (int i in Enum.GetValues(typeof(Genero)))
@@ -190,18 +190,18 @@ namespace MeuDioSeries.AppConsole
                     }
 
                     Console.Write("\nDigite o genêro entre as opções acima(Ex: 1): ");
-                    serie.Genero = (Genero)int.Parse(Console.ReadLine());
+                    serie.Result.Genero = (Genero)int.Parse(Console.ReadLine());
 
                     Console.Write("\nDigite o Título da Série: ");
-                    serie.Titulo = Console.ReadLine();
+                    serie.Result.Titulo = Console.ReadLine();
 
                     Console.Write("\nDigite a Descrição da Série: ");
-                    serie.Descricao = Console.ReadLine();
+                    serie.Result.Descricao = Console.ReadLine();
 
                     Console.Write("\nDigite o Ano de Início da Série(Ex: 2015): ");
-                    serie.AnoLancamento = int.Parse(Console.ReadLine());
+                    serie.Result.AnoLancamento = int.Parse(Console.ReadLine());
 
-                    _service.Update(serie);
+                    _service.Update(serie.Result);
 
                     Console.Write("\n\nSérie atualizada com sucesso.");
                 }
@@ -239,7 +239,7 @@ namespace MeuDioSeries.AppConsole
                 if (serie != null)
                 {
                     Console.Write("\n");
-                    DetalhesSerieViewModel(serie);
+                    DetalhesSerieViewModel(serie.Result);
                     Console.WriteLine("\n------------------------------------\n");
 
                     Console.WriteLine();
@@ -251,7 +251,7 @@ namespace MeuDioSeries.AppConsole
                     }
                     else
                     {
-                        _service.Remove(serie);
+                        _service.Remove(serie.Result);
                         Console.Write("\n\nSérie excluida com sucesso.");
                     }
                 }
@@ -289,7 +289,7 @@ namespace MeuDioSeries.AppConsole
                 if (serie != null)
                 {
                     Console.WriteLine();
-                    DetalhesSerieViewModel(serie);
+                    DetalhesSerieViewModel(serie.Result);
                 }
                 else
                 {

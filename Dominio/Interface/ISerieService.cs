@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using MeuDioSeries.Dominio.Entidades;
+using System.Collections.Generic;
 
 namespace MeuDioSeries.Dominio.Interface
 {
-    public interface ISerieService<T>
+    public interface ISerieService : IServicoBase<SerieViewModel>
     {
-        void Add(T obj);
-        T GetById(int id);
-        IEnumerable<T> GetAll();
-        void Update(T obj);
-        void Remove(T obj);
+
     }
 }

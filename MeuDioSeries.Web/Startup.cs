@@ -41,7 +41,7 @@ namespace MeuDioSeries.Web
             services.AddSingleton(mapper);
 
             services.AddTransient<ISerieRepositorio, SeriesRepositorio>();
-            services.AddTransient<ISerieService<SerieViewModel>, SerieService>();
+            services.AddTransient<ISerieService, SerieService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

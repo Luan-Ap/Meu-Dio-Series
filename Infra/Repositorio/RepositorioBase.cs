@@ -13,28 +13,28 @@ namespace MeuDioSeries.Infra.Repositorio
     {
         protected DioSeriesContext context = new DioSeriesContext();
 
-        public void Add(T obj)
+        public async Task AddAsync(T obj)
         {
             context.Set<T>().Add(obj);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            var objects = context.Set<T>().ToList();
+            var objects = await context.Set<T>().ToListAsync();
             return objects;
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            var obj = context.Set<T>().Find(id);
+            var obj = await context.Set<T>().FindAsync(id);
             return obj;
         }
 
-        public void Update(T obj)
+        public async Task UpdateAsync(T obj)
         {
             context.Entry(obj).State = EntityState.Modified;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

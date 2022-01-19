@@ -19,7 +19,7 @@ namespace MeuDioSeries.Dominio.Entidades
         public string Titulo { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Campo Descrição é obrigatório")]
-        [MaxLength(150, ErrorMessage = "Máximo: 250 caracteres")]
+        [MaxLength(250, ErrorMessage = "Máximo: 250 caracteres")]
         [MinLength(1, ErrorMessage = "Mínimo: 5 caracter")]
         [DataType(DataType.MultilineText)]
         [DisplayName("Descrição")]

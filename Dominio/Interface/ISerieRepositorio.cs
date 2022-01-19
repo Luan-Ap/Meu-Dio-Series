@@ -1,14 +1,13 @@
 ﻿using MeuDioSeries.Dominio.Entidades;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MeuDioSeries.Dominio.Interface
 {
     public interface ISerieRepositorio : IRepositorioBase<Serie>
     {
-       // void Add(T obj);
-        Serie GetSerieNaoExcluidaById(int id);
-        IEnumerable<Serie> GetAllSeriesNaoExcluidas();
-       // void Update(T obj);
-        void Remove(Serie serie);
+        Task<Serie> GetSerieNaoExcluidaByIdAsync(int id);
+        Task<IEnumerable<Serie>> GetAllSeriesNaoExcluidasAsync();
+        Task RemoveAsync(Serie serie);
     }
 }

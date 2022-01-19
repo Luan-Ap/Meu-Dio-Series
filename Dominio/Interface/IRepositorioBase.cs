@@ -8,9 +8,9 @@ namespace MeuDioSeries.Dominio.Interface
 {
     public interface IRepositorioBase<T>
     {
-        void Add(T obj);
-        T GetById(int id);
-        IEnumerable<T> GetAll();
-        void Update(T obj);
+        Task AddAsync(T obj);
+        Task<T> GetByIdAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task UpdateAsync(T obj);
     }
 }
