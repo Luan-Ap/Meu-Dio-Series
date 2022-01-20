@@ -17,19 +17,19 @@ namespace MeuDioSeries.Web.Controllers
 
         // GET: SerieController
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var series = _serieService.GetAll();
+            var series = await _serieService.GetAll();
 
-            return View(series.Result);
+            return View(series);
         }
 
         // GET: SerieController/Details/5
         [HttpGet]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var serieViewModel = _serieService.GetById(id);
-            return View(serieViewModel.Result);
+            var serieViewModel = await _serieService.GetById(id);
+            return View(serieViewModel);
         }
 
         // GET: SerieController/Create
@@ -54,20 +54,20 @@ namespace MeuDioSeries.Web.Controllers
         }
 
         // GET: SerieController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var serieViewModel = _serieService.GetById(id);
-            return View(serieViewModel.Result);
+            var serieViewModel = await _serieService.GetById(id);
+            return View(serieViewModel);
         }
 
         // POST: SerieController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SerieViewModel serieViewModel)
+        public async Task<ActionResult> Edit(SerieViewModel serieViewModel)
         {
             if (ModelState.IsValid)
             {
-                _serieService.Update(serieViewModel);
+                await _serieService.Update(serieViewModel);
                 return RedirectToAction("Index");
             }
 
@@ -75,10 +75,10 @@ namespace MeuDioSeries.Web.Controllers
         }
 
         // GET: SerieController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var serieViewModel = _serieService.GetById(id);
-            return View(serieViewModel.Result);
+            var serieViewModel = await _serieService.GetById(id);
+            return View(serieViewModel);
         }
 
         // POST: SerieController/Delete/5
@@ -86,8 +86,8 @@ namespace MeuDioSeries.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var serieViewModel = _serieService.GetById(id);
-            await _serieService.Remove(serieViewModel.Result);
+            var serieViewModel = await _serieService.GetById(id);
+            await _serieService.Remove(serieViewModel);
 
             return RedirectToAction("Index");
         }
