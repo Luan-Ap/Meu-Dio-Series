@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.AnoLancamento)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Genero)
+                @Html.DisplayFor(modelItem => item.Genero.Nome)
             </td>
             <td>
                 @Html.ActionLink("Atualizar", "Edit", new { id=item.SerieId }, new { @class="btn btn-primary"})

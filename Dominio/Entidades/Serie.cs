@@ -1,4 +1,4 @@
-﻿using MeuDioSeries.Dominio.Enum;
+﻿
 
 namespace MeuDioSeries.Dominio.Entidades
 {
@@ -10,11 +10,12 @@ namespace MeuDioSeries.Dominio.Entidades
         public string Descricao { get; set; }
         public int AnoLancamento { get; set; }
         public bool Excluida { get; set; }
+        public int GeneroId { get; set; }
         public Genero Genero { get; set; }
 
         public override string ToString()
         {
-            return $"Gênero: {Genero}\n" +
+            return $"Gênero: {Genero.Nome}\n" +
                    $"Título: {Titulo}\n" +
                    $"Descrição: {Descricao}\n" +
                    $"Ano de Início: {AnoLancamento}";

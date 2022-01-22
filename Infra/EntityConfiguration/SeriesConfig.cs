@@ -26,8 +26,13 @@ namespace MeuDioSeries.Infra.EntityConfiguration
             Property(s => s.Excluida)
                 .IsRequired();
 
-            Property(s => s.Genero)
+            Property(s => s.GeneroId)
                 .IsRequired();
+
+            //Definimos um relacionamento de 1 para N entre as tabelas Series e Generos
+            HasRequired(s => s.Genero) //Onde uma série está ligada a um gênero
+                .WithMany(g => g.Series) //E um gênero pode estar ligado a várias séries
+                .HasForeignKey(s => s.GeneroId); //Definimos que a propriedade GeneroId se trata da chave estrangeira
         }
     }
 }

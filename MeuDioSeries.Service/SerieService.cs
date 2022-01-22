@@ -44,13 +44,6 @@ namespace MeuDioSeries.Service
             await _serieRepositorio.RemoveAsync(serie);
         }
 
-        //public async Task Remove(SerieViewModel serieViewModel)
-        //{
-        //    var serie = _mapper.Map<SerieViewModel, Serie>(serieViewModel);
-        //    serie.Excluida = true;
-        //    await _serieRepositorio.RemoveAsync(serie);
-        //}
-
         public async Task Update (SerieViewModel serieViewModel)
         {
             var serie = _mapper.Map<Serie>(serieViewModel);

@@ -9,6 +9,5 @@ namespace MeuDioSeries.Dominio.Interface
         Task<T> GetById(int id);
         Task<IEnumerable<T>> GetAll();
         Task Update(T obj);
-        Task Remove(T obj);
     }
 }

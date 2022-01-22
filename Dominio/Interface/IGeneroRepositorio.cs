@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 
 namespace MeuDioSeries.Dominio.Interface
 {
-    public interface ISerieService : IServicoBase<SerieViewModel>
+    public interface IGeneroRepositorio : IRepositorioBase<Genero>
     {
-        Task Remove(SerieViewModel obj);
     }
 }

@@ -16,6 +16,7 @@ namespace MeuDioSeries.Infra.Contexto
         }
 
         public DbSet<Serie> Series { get; set; }
+        public DbSet<Genero> Generos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,5 +1,4 @@
-﻿using MeuDioSeries.Dominio.Enum;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -33,7 +32,10 @@ namespace MeuDioSeries.Dominio.Entidades
         [ScaffoldColumn(false)]
         public bool Excluida { get; set; }
 
-        [Required(ErrorMessage = "O Campo Gênero é obrigatório")]
+        [Required(ErrorMessage = "Selecione um Gênero")]
+        [DisplayName("Gênero")]
+        public int GeneroId { get; set; }
+
         [DisplayName("Gênero")]
         public Genero Genero { get; set; }
     }

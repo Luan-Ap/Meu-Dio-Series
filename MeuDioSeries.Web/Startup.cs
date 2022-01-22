@@ -30,6 +30,9 @@ namespace MeuDioSeries.Web
             {
                 c.CreateMap<SerieViewModel, Serie>();
                 c.CreateMap<Serie, SerieViewModel>();
+
+                c.CreateMap<GeneroViewModel, Genero>();
+                c.CreateMap<Genero, GeneroViewModel>();
             });
 
             //Aqui criamos um mapper com a configuração definida
@@ -41,7 +44,10 @@ namespace MeuDioSeries.Web
             services.AddSingleton(mapper);
 
             services.AddTransient<ISerieRepositorio, SeriesRepositorio>();
+            services.AddTransient<IGeneroRepositorio, GeneroRepositorio>();
+
             services.AddTransient<ISerieService, SerieService>();
+            services.AddTransient<IGeneroService, GeneroService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

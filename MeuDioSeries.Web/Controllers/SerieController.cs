@@ -2,6 +2,7 @@
 using MeuDioSeries.Dominio.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
 namespace MeuDioSeries.Web.Controllers
@@ -9,10 +10,12 @@ namespace MeuDioSeries.Web.Controllers
     public class SerieController : Controller
     {
         private readonly ISerieService _serieService;
+        private readonly IGeneroService _generoService;
 
-        public SerieController(ISerieService serieService)
+        public SerieController(ISerieService serieService, IGeneroService generoService)
         {
             _serieService = serieService;
+            _generoService = generoService;
         }
 
         // GET: SerieController
@@ -34,8 +37,9 @@ namespace MeuDioSeries.Web.Controllers
 
         // GET: SerieController/Create
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            ViewBag.GeneroId = new SelectList( await _generoService.GetAll(), "GeneroId", "Nome");
             return View();
         }
 
@@ -50,6 +54,7 @@ namespace MeuDioSeries.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.GeneroId = new SelectList(await _generoService.GetAll(), "GeneroId", "Nome", serieViewModel.GeneroId);
             return View(serieViewModel);
         }
 
@@ -57,6 +62,9 @@ namespace MeuDioSeries.Web.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var serieViewModel = await _serieService.GetById(id);
+
+            ViewBag.GeneroId = new SelectList(await _generoService.GetAll(), "GeneroId", "Nome", serieViewModel.GeneroId);
+            
             return View(serieViewModel);
         }
 
@@ -71,6 +79,7 @@ namespace MeuDioSeries.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.GeneroId = new SelectList(await _generoService.GetAll(), "GeneroId", "Nome", serieViewModel.GeneroId);
             return View(serieViewModel);
         }
 
