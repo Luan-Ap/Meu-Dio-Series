@@ -1,0 +1,44 @@
+﻿@model MeuDioSeries.Web.Models.UsuarioViewModel
+
+<div class="container border" style="margin:auto; width:500px">
+    <form method="post" asp-action="Login" asp-controller="Conta" class="needs-validation" novalidate style="padding: 5px">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="Digite seu E-mail aqui..." minlength="5" required/>
+            <div class="invalid-feedback">Por favor, digite um E-mail válido</div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Senha"></label>
+            <input asp-for="Senha" type="password" class="form-control" placeholder="Digite sua Senha aqui..." minlength="3" required/>
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <input asp-for="LembrarMe" type="checkbox" class="form-check-input" />
+            <label asp-for="LembrarMe" class="form-check-label"></label>
+        </div>
+        <button type="submit" class="btn btn-success">Entrar</button>
+    </form>
+</div>
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+@section Scripts{ 
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

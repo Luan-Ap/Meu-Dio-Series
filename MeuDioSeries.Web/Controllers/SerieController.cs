@@ -1,5 +1,6 @@
 ﻿using MeuDioSeries.Dominio.Entidades;
 using MeuDioSeries.Dominio.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeuDioSeries.Web.Controllers
 {
+    [Authorize]
     public class SerieController : Controller
     {
         private readonly ISerieService _serieService;
@@ -36,6 +38,7 @@ namespace MeuDioSeries.Web.Controllers
         }
 
         // GET: SerieController/Create
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<ActionResult> Create()
         {
@@ -59,6 +62,7 @@ namespace MeuDioSeries.Web.Controllers
         }
 
         // GET: SerieController/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int id)
         {
             var serieViewModel = await _serieService.GetById(id);
@@ -84,6 +88,7 @@ namespace MeuDioSeries.Web.Controllers
         }
 
         // GET: SerieController/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             var serieViewModel = await _serieService.GetById(id);

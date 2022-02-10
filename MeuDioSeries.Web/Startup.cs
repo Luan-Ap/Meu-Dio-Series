@@ -25,6 +25,14 @@ namespace MeuDioSeries.Web
         {
             services.AddControllersWithViews();
 
+            services.AddAuthentication("CookieSeries")
+                .AddCookie("CookieSeries", c => 
+                {
+                    c.Cookie.Name = "CookieSeries";
+                    c.LoginPath = "/Conta/Login";
+                    c.AccessDeniedPath = "/Conta/AcessoNegado";
+                });
+
             //Aqui criamos uma configuração do AutoMapper para realizar o mapeamento
             var config = new MapperConfiguration(c =>
             {
@@ -68,6 +76,7 @@ namespace MeuDioSeries.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
