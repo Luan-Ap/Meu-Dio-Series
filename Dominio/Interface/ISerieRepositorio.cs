@@ -8,6 +8,7 @@ namespace MeuDioSeries.Dominio.Interface
     {
         Task<Serie> GetSerieNaoExcluidaByIdAsync(int id);
         Task<IEnumerable<Serie>> GetAllSeriesNaoExcluidasAsync();
+        Task<IEnumerable<Serie>> GetSeriesByTitleAsync(string nome);
         Task RemoveAsync(Serie serie);
     }
 }

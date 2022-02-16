@@ -21,7 +21,7 @@ namespace MeuDioSeries.Infra.Repositorio
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            var objects = await context.Set<T>().ToListAsync();
+            var objects = await context.Set<T>().AsNoTracking().ToListAsync();
             return objects;
         }
 

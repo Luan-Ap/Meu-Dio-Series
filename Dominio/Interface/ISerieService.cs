@@ -6,6 +6,8 @@ namespace MeuDioSeries.Dominio.Interface
 {
     public interface ISerieService : IServicoBase<SerieViewModel>
     {
-        Task Remove(SerieViewModel obj);
+        Task RemoveAsync(SerieViewModel obj);
+
+        Task<IEnumerable<SerieViewModel>> GetSeriesByTitleAsync(string nome);
     }
 }

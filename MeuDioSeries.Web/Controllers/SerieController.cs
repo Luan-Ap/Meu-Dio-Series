@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MeuDioSeries.Web.Controllers
@@ -22,18 +23,31 @@ namespace MeuDioSeries.Web.Controllers
 
         // GET: SerieController
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string title = null)
         {
-            var series = await _serieService.GetAll();
+            ViewData["BuscarSeries"] = title;
 
-            return View(series);
+            IEnumerable<SerieViewModel> series;
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                series = await _serieService.GetSeriesByTitleAsync(title);
+
+                return View(series);
+            }
+            else
+            {
+                series = await _serieService.GetAllAsync();
+
+                return View(series);
+            }
         }
 
         // GET: SerieController/Details/5
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
-            var serieViewModel = await _serieService.GetById(id);
+            var serieViewModel = await _serieService.GetByIdAsync(id);
             return View(serieViewModel);
         }
 
@@ -42,7 +56,7 @@ namespace MeuDioSeries.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            ViewBag.GeneroId = new SelectList( await _generoService.GetAll(), "GeneroId", "Nome");
+            ViewBag.GeneroId = new SelectList( await _generoService.GetAllAsync(), "GeneroId", "Nome");
             return View();
         }
 
@@ -53,11 +67,11 @@ namespace MeuDioSeries.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _serieService.Add(serieViewModel);
+                await _serieService.AddAsync(serieViewModel);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GeneroId = new SelectList(await _generoService.GetAll(), "GeneroId", "Nome", serieViewModel.GeneroId);
+            ViewBag.GeneroId = new SelectList(await _generoService.GetAllAsync(), "GeneroId", "Nome", serieViewModel.GeneroId);
             return View(serieViewModel);
         }
 
@@ -65,9 +79,9 @@ namespace MeuDioSeries.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int id)
         {
-            var serieViewModel = await _serieService.GetById(id);
+            var serieViewModel = await _serieService.GetByIdAsync(id);
 
-            ViewBag.GeneroId = new SelectList(await _generoService.GetAll(), "GeneroId", "Nome", serieViewModel.GeneroId);
+            ViewBag.GeneroId = new SelectList(await _generoService.GetAllAsync(), "GeneroId", "Nome", serieViewModel.GeneroId);
             
             return View(serieViewModel);
         }
@@ -79,11 +93,11 @@ namespace MeuDioSeries.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _serieService.Update(serieViewModel);
+                await _serieService.UpdateAsync(serieViewModel);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GeneroId = new SelectList(await _generoService.GetAll(), "GeneroId", "Nome", serieViewModel.GeneroId);
+            ViewBag.GeneroId = new SelectList(await _generoService.GetAllAsync(), "GeneroId", "Nome", serieViewModel.GeneroId);
             return View(serieViewModel);
         }
 
@@ -91,7 +105,7 @@ namespace MeuDioSeries.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
-            var serieViewModel = await _serieService.GetById(id);
+            var serieViewModel = await _serieService.GetByIdAsync(id);
             return View(serieViewModel);
         }
 
@@ -100,8 +114,8 @@ namespace MeuDioSeries.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var serieViewModel = await _serieService.GetById(id);
-            await _serieService.Remove(serieViewModel);
+            var serieViewModel = await _serieService.GetByIdAsync(id);
+            await _serieService.RemoveAsync(serieViewModel);
 
             return RedirectToAction("Index");
         }

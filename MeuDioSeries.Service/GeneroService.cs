@@ -19,25 +19,25 @@ namespace MeuDioSeries.Service
             _mapper = mapper;
         }
 
-        public async Task Add(GeneroViewModel generoViewModel)
+        public async Task AddAsync(GeneroViewModel generoViewModel)
         {
             var genero= _mapper.Map<Genero>(generoViewModel);
             await _generoRepositorio.AddAsync(genero);
         }
 
-        public async Task<IEnumerable<GeneroViewModel>> GetAll()
+        public async Task<IEnumerable<GeneroViewModel>> GetAllAsync()
         {
             var generosViewModel = _mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepositorio.GetAllAsync());
             return generosViewModel;
         }
 
-        public async Task<GeneroViewModel> GetById(int id)
+        public async Task<GeneroViewModel> GetByIdAsync(int id)
         {
             var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepositorio.GetByIdAsync(id));
             return generoViewModel;
         }
 
-        public async Task Update (GeneroViewModel generoViewModel)
+        public async Task UpdateAsync (GeneroViewModel generoViewModel)
         {
             var genero = _mapper.Map<Genero>(generoViewModel);
             await _generoRepositorio.UpdateAsync(genero);

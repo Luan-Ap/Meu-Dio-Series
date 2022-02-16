@@ -15,7 +15,9 @@ Dividi a solução em 5 camadas(projetos):
 - Projeto MeuDioSeries.AppWeb que se trata da camada de Apresentação feita em ASP.NET Core MVC, onde também é configurado a injeção de depedência para a utilização das interfaces e do AutoMapper.
 - Projeto MeuDioSeries.Service que se trata da camada de Serviço que media a comunicação das camadas de Apresentação com MeuDioSeries.Infra, implemetando a interface IServiceBase, ISerieService e IGeneroService da camada de Dominio e a utilização do AutoMapper.
 
-Além disso, também adicionei um processo de Autenticação e Autorização com cookies na aplicação MVC, criando dois tipos de usuário: Admin e Visitante.
+Há também uma funcionalidade de busca personalizada, onde é possível digitar o nome de uma série e, então, realizar uma consulta na base de dados pelo nome inserido.  
+
+Além disso, adicionei um processo de Autenticação e Autorização com cookies na aplicação MVC, criando dois tipos de usuário: Admin e Visitante.
 O usário Visitante tem acesso apenas as funcionalidades de consulta. Já o usuário Admin tem acesso a todas as funcionalidades até então desenvolvidas.
 
 Para acessar como Visititante as credenciais são as seguintes:
