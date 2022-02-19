@@ -26,7 +26,31 @@ Para acessar como Visititante as credenciais são as seguintes:
 
 Para acessar como Admin, as credenciais são as seguintes:
 - Usuário: luan.admin@email.com
-- Senha: adminLuan123 
+- Senha: adminLuan123
+
+A seguir, serão apresentadas algumas imagens das funcionalidades da aplicação.
+
+- Tela Login campos vazios:
+
+![alt](Imagens-de-exemlo/tela-login-vazia.jpg)
+
+- Tela Login campos preenchidos corretamente:
+
+![alt](Imagens-de-exemlo/tela-login-completa.jpg)
+
+
+
+- Tela Inicial:
+
+![alt](Imagens-de-exemlo/tela-inicial.jpg)
+
+- Tela Listagem de séries:
+
+![alt](Imagens-de-exemlo/tela-listagem.jpg)
+
+- Tela Listagem personalizada:
+
+![alt](Imagens-de-exemlo/tela-busca-personalizada.jpg)
 
 Links úteis:
 
